@@ -33,6 +33,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto">
+      <HintPath>dll\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="Maticsoft.DBUtility">
+      <HintPath>dll\Maticsoft.DBUtility.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -40,6 +46,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.OracleClient" />
     <Reference Include="System.Net" />
     <Reference Include="System.Net.Http">
       <HintPath>..\packages\System.Net.Http.2.0.20126.16343\lib\net40\System.Net.Http.dll</HintPath>
@@ -74,11 +81,13 @@
   <ItemGroup>
     <Compile Include="ClientFactory.cs" />
     <Compile Include="SabreSoapApi\EndTransactionLLSRQ.cs" />
+    <Compile Include="SabreSoapApi\GetHotelImageRQ.cs" />
     <Compile Include="SabreSoapApi\HotelRateDescriptionLLSRQ.cs" />
     <Compile Include="SabreSoapApi\OTA_HotelResLLSRQ.cs" />
     <Compile Include="SabreSoapApi\PassengerDetailsRQ.cs" />
     <Compile Include="soap\BookHotelReservation.cs" />
     <Compile Include="soap\EndTransaction.cs" />
+    <Compile Include="soap\GetHotelImage.cs" />
     <Compile Include="soap\HotelAvailability.cs" />
     <Compile Include="soap\HotelPropertyDescription.cs" />
     <Compile Include="soap\HotelRateDescription.cs" />

@@ -299,6 +299,42 @@ namespace SabreAPIDemo
         }
 
         /// <summary>
+        /// 创建“GetHotelImageRQApi”接口消息头
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="conversationId"></param>
+        /// <returns></returns>
+        public GetHotelImageRQApi.MessageHeader CreatGetHotelImageHeader(string action, string conversationId)
+        {
+            string pseudoCityCode = this.configProvider.Group;
+            return new GetHotelImageRQApi.MessageHeader()
+            {
+                Service = new GetHotelImageRQApi.Service
+                {
+                    type = "OTA",
+                    Value = action
+                },
+                Action = action,
+                From = new GetHotelImageRQApi.From
+                {
+                    PartyId = new[]
+                    {
+                        new GetHotelImageRQApi.PartyId { type = FromType, Value = FromPartyId }
+                    }
+                },
+                To = new GetHotelImageRQApi.To
+                {
+                    PartyId = new[]
+                    {
+                        new GetHotelImageRQApi.PartyId { type = ToType, Value = ToPartyId }
+                    }
+                },
+                ConversationId = conversationId,
+                CPAId = pseudoCityCode
+            };
+        }
+
+        /// <summary>
         /// 创建“SessionCreate”请求对象.
         /// </summary>
         public SessionCreateRQApi.SessionCreateRQ CreateSessionCreateRequest()
@@ -425,6 +461,22 @@ namespace SabreAPIDemo
             {
                 MessageHeaderValue = this.CreateEndTransactionLLSRQHeader("EndTransactionLLSRQ", conversationId),
                 Security = security,
+                Url = this.configProvider.Environment
+            };
+        }
+
+        /// <summary>
+        /// 创建GetHotelImageRQApi服务对象
+        /// </summary>
+        /// <param name="conversationId"></param>
+        /// <param name="security"></param>
+        /// <returns></returns>
+        public GetHotelImageRQApi.GetHotelImageRQService CreateGetHotelImageService(string conversationId, GetHotelImageRQApi.Security security)
+        {
+            return new GetHotelImageRQApi.GetHotelImageRQService()
+            {
+                MessageHeaderValue = this.CreatGetHotelImageHeader("GetHotelImageRQ", conversationId),
+                SecurityValue = security,
                 Url = this.configProvider.Environment
             };
         }

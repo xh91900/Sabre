@@ -25,9 +25,9 @@ namespace SabreAPIDemo
 
         static void Main(string[] args)
         {
-            // Sets the TLS 1.2 as default security protocol
+            // Sets the TLS 1.0 as default security protocol
             ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12; 
 
             // soap接口调用流程
             SessionPool SessionPool = SessionPoolFactory.Create();
@@ -175,7 +175,7 @@ namespace SabreAPIDemo
             //string s = JsonConvert.SerializeObject(rq);
             //HotelPropertyDescriptionRS hotelPropertyDescriptionRS = hotelPropertyDescriptionService.HotelPropertyDescriptionRQ(rq);
 
-            // 步骤3:检索酒店规则和策略
+            //// 步骤3:检索酒店规则和策略
             //HotelRateDescriptionService hotelRateDescriptionService = new HotelRateDescriptionService();
             //var rq = new HotelRateDescriptionRQ()
             //{

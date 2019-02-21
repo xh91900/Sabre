@@ -51,7 +51,7 @@ namespace SabreAPIDemo
         }
 
         /// <summary>
-        /// 异步填充会话池，创建新会话.
+        /// 填充会话池，创建新会话.
         /// </summary>
         /// <returns>
         /// </returns>
@@ -74,12 +74,10 @@ namespace SabreAPIDemo
                     // 日志
                 }
             }
-
-            this.semaphore.Release(successes);
         }
 
         /// <summary>
-        /// 异步从会话池获取安全令牌.
+        /// 从会话池获取安全令牌.
         /// </summary>
         /// <param name="conversationId">会话标识符.</param>
         /// <returns>
