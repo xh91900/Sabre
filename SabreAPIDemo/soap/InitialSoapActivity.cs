@@ -40,7 +40,7 @@ namespace SabreAPIDemo
         public IActivity Run(SharedContext sharedContext)
         {
             sharedContext.AddResult("", "请求参数对象");
-            IActivity nextActivity = new soap.GetHotelImage(this.soapServiceFactory, this.sessionPool);
+            IActivity nextActivity = new HotelAvailability(this.soapServiceFactory, this.sessionPool);
             return nextActivity;
         }
     }

@@ -25,6 +25,19 @@ namespace SabreAPIDemo
 
         static void Main(string[] args)
         {
+
+            string ChainInfo= File.ReadAllText(@"C:\Users\user\Desktop\sabre\ChainInfo.txt");
+            var ChainInfolist= Newtonsoft.Json.JsonConvert.DeserializeObject<SabreAPIDemo.model.soap.Root>(ChainInfo);
+            ChainInfolist.GetHotelChainInfoRS.Marketers.Marketer.ForEach(p =>
+            {
+                p.Chains.Chain.ForEach(o =>
+                {
+                    Maticsoft.DBUtility.DbHelperOra.connectionString = "Data Source=orcl;User Id=hotel;Password=yeesky8848";
+                    string sql = string.Format(@"insert into SABRE_CHAININFO (MARKETERCODE,MARKETERNAME,CHAINCODE,CHAINNAME) values ('{0}','{1}','{2}','{3}')", p.Code, p.Name, o.Code, o.Name);
+                    Maticsoft.DBUtility.DbHelperOra.ExecuteSql(sql);
+                });
+            });
+
             // Sets the TLS 1.0 as default security protocol
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12; 

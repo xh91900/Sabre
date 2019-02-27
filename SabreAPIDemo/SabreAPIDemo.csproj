@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientFactory.cs" />
+    <Compile Include="model\HotelChainInfo.cs" />
     <Compile Include="SabreSoapApi\EndTransactionLLSRQ.cs" />
     <Compile Include="SabreSoapApi\GetHotelImageRQ.cs" />
     <Compile Include="SabreSoapApi\HotelRateDescriptionLLSRQ.cs" />

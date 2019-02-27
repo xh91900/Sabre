@@ -40,23 +40,27 @@ namespace SabreAPIDemo
         /// 运行活动
         /// 执行成功返回下一个活动
         /// </summary>
-        /// <param name="sharedContext"></param>
         /// <returns></returns>
         public IActivity Run(SharedContext sharedContext)
         {
             Maticsoft.DBUtility.DbHelperOra.connectionString = "Data Source=orcl;User Id=hotel;Password=yeesky8848";
             string sql = "select distinct(t.encode) from SABRE_CODEBASE t where  t.code_group='CITY'";
-            DataSet ds= Maticsoft.DBUtility.DbHelperOra.Query(sql);
+            DataSet ds = Maticsoft.DBUtility.DbHelperOra.Query(sql);
             if (ds != null && ds.Tables[0].Rows.Count > 0)
             {
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                 {
                     string cityCode = ds.Tables[0].Rows[i]["encode"].ToString();
-
+                    
                     var security = this.sessionPool.TakeSessionAsync(sharedContext.ConversationId);
                     OTA_HotelAvailLLSRQApi.Security1 security1 = new OTA_HotelAvailLLSRQApi.Security1() { BinarySecurityToken = security.BinarySecurityToken };
                     var service = this.soapServiceFactory.CreateOTA_HotelAvailService(sharedContext.ConversationId, security1);
                     var request = this.CreateRequest(cityCode);
+
+                    Helper h = new Helper();
+                    string s = h.ToXml<OTA_HotelAvailLLSRQApi.MessageHeader>(service.MessageHeaderValue);
+                    string s2 = h.ToXml<OTA_HotelAvailLLSRQApi.Security1>(service.Security);
+                    string s1 = h.ToXml<OTA_HotelAvailLLSRQApi.OTA_HotelAvailRQ>(request);
 
                     try
                     {
@@ -146,17 +150,20 @@ Latitude,Longitude,HotelRateCode,RateLevelCode,LocationDescription,Fax,Phone,Add
                         NumProperties = "100",
                         Criterion = new OTA_HotelAvailLLSRQApi.OTA_HotelAvailRQAvailRequestSegmentHotelSearchCriteriaCriterion()
                         {
+                            //PointOfInterest = new OTA_HotelAvailLLSRQApi.OTA_HotelAvailRQAvailRequestSegmentHotelSearchCriteriaCriterionPointOfInterest()
+                            //{ CountryStateCode = "CN", NonUSSpecified = true, NonUS = true, Value = "SANLITUN" }
                             HotelRef = new OTA_HotelAvailLLSRQApi.OTA_HotelAvailRQAvailRequestSegmentHotelSearchCriteriaCriterionHotelRef[1]
-                        { new OTA_HotelAvailLLSRQApi.OTA_HotelAvailRQAvailRequestSegmentHotelSearchCriteriaCriterionHotelRef() { HotelCityCode = cityCode } }
+                            {
+                                new OTA_HotelAvailLLSRQApi.OTA_HotelAvailRQAvailRequestSegmentHotelSearchCriteriaCriterionHotelRef() { HotelCityCode = cityCode } }
                         }
                     },
                     TimeSpan = new OTA_HotelAvailLLSRQApi.OTA_HotelAvailRQAvailRequestSegmentTimeSpan()
                     {
-                        Start = "02-26",
-                        End = "02-28"
+                        Start = "03-01",
+                        End = "03-03"
                     }
                 },
-                Version = "2.3.0"
+                Version = "2.2.1"
             };
         }
     }

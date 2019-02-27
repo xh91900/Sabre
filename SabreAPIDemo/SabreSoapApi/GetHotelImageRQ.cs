@@ -11,7 +11,8 @@
 // 
 // 此源代码由 wsdl 自动生成, Version=4.6.1055.0。
 // 
-namespace GetHotelImageRQApi {
+namespace GetHotelImageRQApi
+{
     using System;
     using System.Web.Services;
     using System.Diagnostics;

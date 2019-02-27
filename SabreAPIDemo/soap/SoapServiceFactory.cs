@@ -306,31 +306,32 @@ namespace SabreAPIDemo
         /// <returns></returns>
         public GetHotelImageRQApi.MessageHeader CreatGetHotelImageHeader(string action, string conversationId)
         {
+            GetHotelImageRQApi.MessageData msgData = new GetHotelImageRQApi.MessageData();
+            msgData.MessageId = String.Format("mid:{0}@clientofsabre.com1", DateTime.Now.ToString("yyyyMMDD-HHmmss-ffff"));
+            msgData.Timestamp = String.Format("{0}Z", DateTime.UtcNow.ToString("s"));
+
             string pseudoCityCode = this.configProvider.Group;
             return new GetHotelImageRQApi.MessageHeader()
             {
-                Service = new GetHotelImageRQApi.Service
-                {
-                    type = "OTA",
-                    Value = action
-                },
+                Service=new GetHotelImageRQApi.Service(),
                 Action = action,
                 From = new GetHotelImageRQApi.From
                 {
                     PartyId = new[]
                     {
-                        new GetHotelImageRQApi.PartyId { type = FromType, Value = FromPartyId }
+                        new GetHotelImageRQApi.PartyId { type = FromType, Value = "Client" }
                     }
                 },
                 To = new GetHotelImageRQApi.To
                 {
                     PartyId = new[]
                     {
-                        new GetHotelImageRQApi.PartyId { type = ToType, Value = ToPartyId }
+                        new GetHotelImageRQApi.PartyId { type = ToType, Value = "SWS" }
                     }
                 },
                 ConversationId = conversationId,
-                CPAId = pseudoCityCode
+                CPAId = pseudoCityCode,
+                MessageData= msgData
             };
         }
 
@@ -477,7 +478,7 @@ namespace SabreAPIDemo
             {
                 MessageHeaderValue = this.CreatGetHotelImageHeader("GetHotelImageRQ", conversationId),
                 SecurityValue = security,
-                Url = this.configProvider.Environment
+                Url = this.configProvider.Environment,
             };
         }
 
